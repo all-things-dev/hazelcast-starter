@@ -1,0 +1,12 @@
+# IntelliJ project files
+.idea
+.ideaDataSources
+dataSources
+.shelf
+*.iml
+*.iws
+*.ipr
+
+# Generated files
+logs
+target
