@@ -16,7 +16,7 @@ Add the following dependency to your `pom.xml` file:
 <dependency>
 	<groupId>com.hazelcast</groupId>
 	<artifactId>hazelcast-spring-boot-starter</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
+	<version>1.0.0-M1</version>
 </dependency>
 ```
 
