@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<!-- Project parent configuration for dependency management -->
+	<parent>
+		<groupId>dev.all-things.boot</groupId>
+		<artifactId>hazelcast-spring-boot-starters</artifactId>
+		<version>1.0-SNAPSHOT</version>
+
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+
+	<artifactId>hazelcast-spring-boot-starter</artifactId>
+
+	<!-- This module will be packaged as JAR -->
+	<packaging>jar</packaging>
+
+	<name>Hazelcast Spring Boot Starter</name>
+	<description>Spring Boot starter for configuring Hazelcast server and client instances</description>
+
+	<!-- Module dependencies -->
+	<dependencies>
+
+		<!-- Spring framework -->
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter</artifactId>
+
+			<exclusions>
+				<!--
+				Disabling (unused but) vulnerable snakeyaml v1.33 dependency due to CVE-2022-41854 and CVE-2022-1471.
+
+				CVE-2022-41854 6.5 Out-of-bounds Write vulnerability with medium severity found
+				CVE-2022-1471 9.8 Deserialization of Untrusted Data vulnerability with high severity found
+
+				Spring Boot v3.2.0 fixes the vulnerability.
+				 -->
+				<exclusion>
+					<groupId>org.yaml</groupId>
+					<artifactId>snakeyaml</artifactId>
+				</exclusion>
+			</exclusions>
+
+		</dependency>
+
+		<!-- Hazelcast -->
+
+		<dependency>
+			<groupId>com.hazelcast</groupId>
+			<artifactId>hazelcast-spring</artifactId>
+		</dependency>
+
+		<!-- Testing -->
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- Development tools -->
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-configuration-processor</artifactId>
+			<optional>true</optional>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-autoconfigure-processor</artifactId>
+			<optional>true</optional>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<optional>true</optional>
+			<scope>runtime</scope>
+		</dependency>
+
+	</dependencies>
+
+</project>
