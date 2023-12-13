@@ -54,6 +54,16 @@
 		<!-- Caching -->
 		<hazelcast.version>5.3.6</hazelcast.version>
 
+		<!-- Plugins -->
+		<maven.source-plugin.version>3.3.0</maven.source-plugin.version>
+		<maven.javadoc-plugin.version>3.6.3</maven.javadoc-plugin.version>
+		<maven.nexus-staging-plugin.version>1.6.13</maven.nexus-staging-plugin.version>
+		<maven.gpg-plugin.version>3.1.0</maven.gpg-plugin.version>
+
+		<!-- Spring Boot plugin overrides -->
+		<maven-source-plugin.version>${maven.source-plugin.version}</maven-source-plugin.version>
+		<maven-javadoc-plugin.version>${maven.javadoc-plugin.version}</maven-javadoc-plugin.version>
+
 		<!-- Compiler configuration -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
@@ -70,5 +80,100 @@
 		<finalName>${project.artifactId}-${project.version}</finalName>
 
 	</build>
+
+	<!-- Module profiles -->
+	<profiles>
+		<!-- Profile for publishing to Maven Central -->
+		<profile>
+			<id>release</id>
+
+			<!-- Release build configuration -->
+			<build>
+				<plugins>
+
+					<!-- Source plugin configuration for publishing sources -->
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-source-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>attach-sources</id>
+								<goals>
+									<goal>jar-no-fork</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+
+					<!-- JavaDoc plugin configuration for publishing JavaDocs -->
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-javadoc-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>attach-javadocs</id>
+								<goals>
+									<goal>jar</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+
+					<!-- Nexus staging plugin configuration for staging / releasing artifacts -->
+					<plugin>
+						<groupId>org.sonatype.plugins</groupId>
+						<artifactId>nexus-staging-maven-plugin</artifactId>
+						<version>${maven.nexus-staging-plugin.version}</version>
+
+						<!-- Enabling plugin extensions -->
+						<extensions>true</extensions>
+
+						<configuration>
+							<serverId>ossrh</serverId>
+							<nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
+
+							<!-- Disabling automatic publishing to Maven Central -->
+							<autoReleaseAfterClose>false</autoReleaseAfterClose>
+						</configuration>
+					</plugin>
+
+					<!-- GPG plugin configuration for signing published artifacts -->
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-gpg-plugin</artifactId>
+						<version>${maven.gpg-plugin.version}</version>
+						<executions>
+							<execution>
+								<id>sign-artifacts</id>
+								<phase>verify</phase>
+								<goals>
+									<goal>sign</goal>
+								</goals>
+								<configuration>
+									<keyname>${gpg.key-name}</keyname>
+									<passphraseServerId>${gpg.key-name}</passphraseServerId>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+
+			<!-- Staging / Release repository configuration -->
+			<distributionManagement>
+				<!-- Staging repository configuration for synchronizing with Maven Central -->
+				<repository>
+					<id>ossrh</id>
+					<url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+				</repository>
+
+				<!-- Snapshot repository configuration for testing -->
+				<snapshotRepository>
+					<id>ossrh</id>
+					<url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
+				</snapshotRepository>
+			</distributionManagement>
+		</profile>
+	</profiles>
 
 </project>
