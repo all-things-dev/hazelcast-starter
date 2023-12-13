@@ -12,7 +12,6 @@ Spring Boot starters for configuring Hazelcast server and client instances.
 Add the following dependency to your `pom.xml` file:
 
 ```xml
-
 <dependency>
 	<groupId>dev.all-things.boot</groupId>
 	<artifactId>hazelcast-spring-boot-starter</artifactId>
@@ -36,7 +35,7 @@ Set `application.cache.hazelcast.mode = client` to use following properties.
 
 | Property                                                   | Description                                                   |
 |------------------------------------------------------------|---------------------------------------------------------------|
-| `application.cache.hazelcast.client.server-addresses`      | Coma-separated list of server addresses.                      |
+| `application.cache.hazelcast.client.server-addresses`      | Comma-separated list of server addresses.                     |
 | `application.cache.hazelcast.client.connection-timeout`    | Timeout value for nodes to accept client connection requests. | 
 | `application.cache.hazelcast.client.smart-routing.enabled` | Whether to enable smart-routing.                              | 
 
@@ -51,15 +50,15 @@ Set `application.cache.hazelcast.mode = server` to use following properties.
 | `application.cache.hazelcast.server.secondary-addresses`          | Alternate network addresses for server to bind to.           |
 | `application.cache.hazelcast.server.port-auto-increment.enabled`  | Whether to enable port auto-increment.                       |
 | `application.cache.hazelcast.server.cluster.enabled`              | Whether to enable clustering mode.                           |
-| `application.cache.hazelcast.server.cluster.members`              | Coma-separated list of well-known cluster members.           |
+| `application.cache.hazelcast.server.cluster.members`              | Comma-separated list of well-known cluster members.          |
 | `application.cache.hazelcast.server.multicast.enabled`            | Whether to enable multicast clustering mode.                 |
 | `application.cache.hazelcast.server.multicast.group-name`         | Name of the multicast group.                                 |
 | `application.cache.hazelcast.server.multicast.port`               | Multicast port.                                              |
-| `application.cache.hazelcast.server.multicast.trusted-interfaces` | Coma-separated list of trusted network interfaces.           |
+| `application.cache.hazelcast.server.multicast.trusted-interfaces` | Comma-separated list of trusted network interfaces.          |
 | `application.cache.hazelcast.server.multicast.time-to-live`       | Time that a node should wait for a valid multicast response. |
 | `application.cache.hazelcast.server.multicast.timeout`            | Time to live for multicast packets.                          |
 
-Considering the variety of practical scenarios, each coma-separated value in
+Considering the variety of practical scenarios, each comma-separated value in
 `application.cache.hazelcast.server.cluster.members` can be specified in different format.
 
 | Format     | Example                                                               |

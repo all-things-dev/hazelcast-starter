@@ -88,7 +88,7 @@ public class HazelcastProperties
 	public static class Client
 	{
 		/**
-		 * Coma-separated list of server addresses to which the Hazelcast client will connect
+		 * Comma-separated list of server addresses to which the Hazelcast client will connect
 		 * e.g. 10.10.20.20:5701,10.10.20.30:5701
 		 */
 		private final List<String> serverAddresses = new ArrayList<>();
@@ -168,7 +168,7 @@ public class HazelcastProperties
 		private String primaryAddress = "127.0.0.1";
 
 		/**
-		 * Coma-separated list of alternate network addresses to which Hazelcast server will bind
+		 * Comma-separated list of alternate network addresses to which Hazelcast server will bind
 		 * in addition to the 'primaryAddress'.
 		 */
 		private final List<String> secondaryAddresses = new ArrayList<>();
@@ -257,7 +257,7 @@ public class HazelcastProperties
 			private Boolean enabled = false;
 
 			/**
-			 * Coma-separated list of well-known cluster members.
+			 * Comma-separated list of well-known cluster members.
 			 * See README.md for supported formats.
 			 */
 			private List<String> members = new ArrayList<>();
@@ -304,7 +304,7 @@ public class HazelcastProperties
 			private Integer port = 5710;
 
 			/**
-			 * Coma-separated list of trusted network interfaces e.g. 10.10.20.*,10.10.30.*.
+			 * Comma-separated list of trusted network interfaces e.g. 10.10.20.*,10.10.30.*.
 			 * Wildcard '*' can be used to trust the entire subnet range.
 			 */
 			private Set<String> trustedInterfaces = new HashSet<>();
