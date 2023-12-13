@@ -15,7 +15,7 @@ Add the following dependency to your `pom.xml` file:
 <dependency>
 	<groupId>dev.all-things.boot</groupId>
 	<artifactId>hazelcast-spring-boot-starter</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
+	<version>1.0.0-M2</version>
 </dependency>
 ```
 
@@ -106,6 +106,3 @@ application.cache.hazelcast.cluster-name = dev
 application.cache.hazelcast.instance-name = dev-node-1
 application.cache.hazelcast.client.server-addresses = 127.0.0.1:5701
 ```
-
-
-
