@@ -31,6 +31,13 @@
 			<artifactId>spring-boot-starter</artifactId>
 
 			<exclusions>
+
+				<!-- Handing over logging to the provided implementation -->
+				<exclusion>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-logging</artifactId>
+				</exclusion>
+
 				<!--
 				Disabling (unused but) vulnerable snakeyaml v1.33 dependency due to CVE-2022-41854 and CVE-2022-1471.
 
@@ -44,7 +51,11 @@
 					<artifactId>snakeyaml</artifactId>
 				</exclusion>
 			</exclusions>
+		</dependency>
 
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
 		</dependency>
 
 		<!-- Hazelcast -->

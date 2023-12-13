@@ -3,8 +3,6 @@ package dev.all_things.boot.autoconfigure.cache.hazelcast;
 import java.time.Duration;
 import java.util.*;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
@@ -13,8 +11,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = "application.cache.hazelcast")
 public class HazelcastProperties
 {
-	private static final Logger logger = LogManager.getLogger(HazelcastProperties.class);
-
 	/**
 	 * Whether to configure Hazelcast instance in 'client' or 'server' mode.
 	 * <p>

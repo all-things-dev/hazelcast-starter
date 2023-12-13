@@ -11,8 +11,8 @@ import com.hazelcast.core.Hazelcast;
 import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.spi.properties.ClusterProperty;
 import com.hazelcast.spring.cache.HazelcastCacheManager;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -34,7 +34,7 @@ import org.springframework.context.annotation.*;
 @EnableCaching(mode = AdviceMode.PROXY, proxyTargetClass = true)
 public class HazelcastConfiguration
 {
-	private static final Logger logger = LogManager.getLogger(HazelcastConfiguration.class);
+	private static final Logger logger = LoggerFactory.getLogger(HazelcastConfiguration.class);
 
 	/**
 	 * Creates a server instance of {@link HazelcastInstance} for caching.
