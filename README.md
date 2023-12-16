@@ -106,3 +106,22 @@ application.cache.hazelcast.cluster-name = dev
 application.cache.hazelcast.instance-name = dev-node-1
 application.cache.hazelcast.client.server-addresses = 127.0.0.1:5701
 ```
+
+## Custom Cache Configuration
+
+You can configure Hazelcast caches by implementing `HazelcastMapConfigurer` interface and registering it as a bean.
+
+```java
+@Bean
+public HazelcastMapConfigurer hazelcastMapConfigurer()
+{
+	return config ->
+	{
+		// Configures cache for name 'cache-1' with 1-hour duration and 1000 entries
+		createMapConfig(config, "cache-1", Duration.ofHours(1), 1000);
+
+		// Configures cache for name 'cache-2' with 1-hour duration which will be cleared if 60% of heap is used
+		createMapConfig(config, "cache-2", Duration.ofHours(1), MaxSizePolicy.USED_HEAP_PERCENTAGE, 60);
+	};
+}
+```

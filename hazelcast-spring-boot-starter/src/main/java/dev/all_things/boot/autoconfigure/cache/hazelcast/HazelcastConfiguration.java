@@ -28,10 +28,13 @@ import org.springframework.context.annotation.*;
  * 'proxyTargetClass' needs to be set to 'true' when caching mode is {@link AdviceMode#PROXY}.
  * Default configuration ('proxyTargetClass = false') produces JDK proxy classes.
  * This is incompatible with {@link ApplicationContext#getBean(Class)}.
+ * <p>
+ * {@code @Configuration(value = "defaultHazelcastConfiguration")} is required to avoid
+ * bean-name conflict when the application also provides {@link HazelcastConfiguration}.
  */
-@Configuration(proxyBeanMethods = false)
 @EnableConfigurationProperties(HazelcastProperties.class)
 @EnableCaching(mode = AdviceMode.PROXY, proxyTargetClass = true)
+@Configuration(value = "defaultHazelcastConfiguration", proxyBeanMethods = false)
 public class HazelcastConfiguration
 {
 	private static final Logger logger = LoggerFactory.getLogger(HazelcastConfiguration.class);
@@ -86,7 +89,7 @@ public class HazelcastConfiguration
 	@Bean(name = "hazelcastInstance", destroyMethod = "shutdown")
 	@ConditionalOnMissingBean(HazelcastInstance.class)
 	@ConditionalOnProperty(prefix = "application.cache.hazelcast", name = "mode", havingValue = "server", matchIfMissing = true)
-	public HazelcastInstance hazelcastServerInstance(final HazelcastProperties hazelcastProperties)
+	public HazelcastInstance hazelcastServerInstance(final HazelcastProperties hazelcastProperties, final HazelcastMapConfigurer mapConfigurer)
 	{
 		System.setProperty("hazelcast.phone.home.enabled", "false");
 
@@ -131,11 +134,26 @@ public class HazelcastConfiguration
 			.setEnabled(cluster.getEnabled()) // Enabling support for well-known members, if specified
 			.setMembers(createMembers(properties)); // Setting well-known members of the cluster
 
+		// Updating {config} with custom map configurations
+		mapConfigurer.configure(config);
+
 		final HazelcastInstance hazelcastInstance = Hazelcast.newHazelcastInstance(config);
 
 		logger.info("Hazelcast server instance created : {}", hazelcastInstance.getName());
 
 		return hazelcastInstance;
+	}
+
+	/**
+	 * Provides fallback implementation of {@link HazelcastMapConfigurer}.
+	 *
+	 * @return {@link NoOpHazelcastMapConfigurer} instance.
+	 */
+	@Bean
+	@ConditionalOnMissingBean(HazelcastMapConfigurer.class)
+	public HazelcastMapConfigurer hazelcastMapConfigurer()
+	{
+		return new NoOpHazelcastMapConfigurer();
 	}
 
 	/**
