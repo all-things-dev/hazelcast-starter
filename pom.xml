@@ -16,7 +16,7 @@
 
 	<groupId>dev.all-things.boot</groupId>
 	<artifactId>hazelcast-spring-boot-starters</artifactId>
-	<version>1.1.0-SNAPSHOT</version>
+	<version>1.1.0</version>
 
 	<!-- This module will be packaged as POM -->
 	<packaging>pom</packaging>
@@ -151,7 +151,6 @@
 								</goals>
 								<configuration>
 									<keyname>${gpg.key-name}</keyname>
-									<passphraseServerId>${gpg.key-name}</passphraseServerId>
 								</configuration>
 							</execution>
 						</executions>
