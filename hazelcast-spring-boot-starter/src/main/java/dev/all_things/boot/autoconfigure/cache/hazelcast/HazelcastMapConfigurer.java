@@ -63,6 +63,4 @@ public interface HazelcastMapConfigurer
 		// Adding created {MapConfig} to {HazelcastInstance} configuration.
 		config.addMapConfig(mapConfig);
 	}
-
-
 }

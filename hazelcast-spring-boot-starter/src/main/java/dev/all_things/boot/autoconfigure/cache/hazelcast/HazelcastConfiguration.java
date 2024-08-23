@@ -69,8 +69,10 @@ public class HazelcastConfiguration
 		final ClientNetworkConfig networkConfig = config.getNetworkConfig();
 
 		networkConfig.setAddresses(properties.getServerAddresses()) // Configuring addresses of servers in cluster
-					 .setSmartRouting(properties.getSmartRouting().getEnabled()) // Enabling / disabling smart routing of requests to nearest server
 					 .setConnectionTimeout((int) properties.getConnectionTimeout().toMillis()); // Configuring client connection timeout
+
+		// Configuring routing mode
+		networkConfig.getClusterRoutingConfig().setRoutingMode(properties.getRoutingMode());
 
 		final HazelcastInstance hazelcastInstance = HazelcastClient.newHazelcastClient(config);
 

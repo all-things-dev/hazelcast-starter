@@ -3,6 +3,7 @@ package dev.all_things.boot.autoconfigure.cache.hazelcast;
 import java.time.Duration;
 import java.util.*;
 
+import com.hazelcast.client.impl.connection.tcp.RoutingMode;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
@@ -96,9 +97,10 @@ public class HazelcastProperties
 		private Duration connectionTimeout = Duration.ofSeconds(5);
 
 		/**
-		 * Hazelcast smart-routing configuration properties.
+		 * Hazelcast client routing configuration properties.
+		 * Default is to round-robin between all available members.
 		 */
-		private SmartRouting smartRouting = new SmartRouting();
+		private RoutingMode routingMode = RoutingMode.ALL_MEMBERS;
 
 		public List<String> getServerAddresses()
 		{
@@ -115,35 +117,14 @@ public class HazelcastProperties
 			this.connectionTimeout = connectionTimeout;
 		}
 
-		public SmartRouting getSmartRouting()
+		public RoutingMode getRoutingMode()
 		{
-			return this.smartRouting;
+			return this.routingMode;
 		}
 
-		public void setSmartRouting(final SmartRouting smartRouting)
+		public void setRoutingMode(final RoutingMode routingMode)
 		{
-			this.smartRouting = smartRouting;
-		}
-
-		/**
-		 * Configuration properties for Hazelcast smart-routing.
-		 */
-		public static class SmartRouting
-		{
-			/**
-			 * Whether to enable smart-routing. Default value is true.
-			 */
-			private Boolean enabled = true;
-
-			public Boolean getEnabled()
-			{
-				return this.enabled;
-			}
-
-			public void setEnabled(final Boolean enabled)
-			{
-				this.enabled = enabled;
-			}
+			this.routingMode = routingMode;
 		}
 	}
 
@@ -224,6 +205,9 @@ public class HazelcastProperties
 			return this.multicast;
 		}
 
+		/**
+		 * Configuration properties for Hazelcast port auto-increment.
+		 */
 		public static class PortAutoIncrement
 		{
 			/**

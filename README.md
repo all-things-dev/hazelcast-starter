@@ -5,7 +5,8 @@ Spring Boot starters for configuring Hazelcast server and client instances.
 ## System Requirements
 
 1. JDK 17
-2. Spring Boot 3.x
+2. Spring Boot 3.2 and later
+3. Hazelcast 5.5 and later
 
 ## Usage
 
@@ -33,11 +34,11 @@ Add the following dependency to your `pom.xml` file:
 
 Set `application.cache.hazelcast.mode = client` to use following properties.
 
-| Property                                                   | Description                                                   |
-|------------------------------------------------------------|---------------------------------------------------------------|
-| `application.cache.hazelcast.client.server-addresses`      | Comma-separated list of server addresses.                     |
-| `application.cache.hazelcast.client.connection-timeout`    | Timeout value for nodes to accept client connection requests. | 
-| `application.cache.hazelcast.client.smart-routing.enabled` | Whether to enable smart-routing.                              | 
+| Property                                                | Description                                                   |
+|---------------------------------------------------------|---------------------------------------------------------------|
+| `application.cache.hazelcast.client.server-addresses`   | Comma-separated list of server addresses.                     |
+| `application.cache.hazelcast.client.connection-timeout` | Timeout value for nodes to accept client connection requests. | 
+| `application.cache.hazelcast.client.routing-mode`       | Client traffic routing mode.                                  | 
 
 ### Server Properties
 
@@ -112,6 +113,7 @@ application.cache.hazelcast.client.server-addresses = 127.0.0.1:5701
 You can configure Hazelcast caches by implementing `HazelcastMapConfigurer` interface and registering it as a bean.
 
 ```java
+
 @Bean
 public HazelcastMapConfigurer hazelcastMapConfigurer()
 {
