@@ -16,7 +16,7 @@
 
 	<groupId>dev.all-things.boot</groupId>
 	<artifactId>hazelcast-spring-boot-starters</artifactId>
-	<version>1.1.0</version>
+	<version>1.1.1-SNAPSHOT</version>
 
 	<!-- This module will be packaged as POM -->
 	<packaging>pom</packaging>
